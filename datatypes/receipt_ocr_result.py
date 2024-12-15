@@ -19,7 +19,8 @@ class ReceiptOcrResult(BaseModel):
 
     receipt_id: ReceiptId
     ocr_status: OcrResult
+    store_name: str
+    store_address: str
     date_time: datetime
-    category: ProductCategories
-    company: str
+    category: list[ProductCategories]
     products: list[Product]

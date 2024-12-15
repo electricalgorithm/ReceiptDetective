@@ -23,6 +23,7 @@ select = ["ALL"]
 ignore = [
   "CPY001",   # Do not check copyright statements.
   "D400",     # Do not check the period on the first line.
+  "ANN101",   # Do not require to have type hints for self.
 ]
 
 [tool.ruff.format]

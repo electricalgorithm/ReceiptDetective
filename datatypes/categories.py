@@ -14,6 +14,10 @@ class ProductCategories(int, Enum):
     """This class holds the possible category types."""
 
     TEXTILE = auto()
+    FOOD = auto()
+    VEGETABLE = auto()
+    FRUIT = auto()
+    KITCHEN_STUFF = auto()
     GROCERY = auto()
     TECHNOLOGY = auto()
     HOBBY = auto()

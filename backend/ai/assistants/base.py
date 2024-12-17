@@ -14,6 +14,7 @@ from enum import unique
 from pathlib import Path
 from typing import Any
 
+import ollama
 from pydantic import BaseModel
 
 
@@ -130,11 +131,17 @@ class AssistantBase(ABC):
         error_msg: str = "Abstract Method is not implemented yet."
         raise NotImplementedError(error_msg)
 
-    @abstractmethod
     def heartbeat(self) -> bool:
-        """Check if LLM agent is alive.
+        """Check if model is alive to recieve inputs.
 
-        :returns: True if LLM is alive, else False.
+        :return: True if alive, False if not.
         """
-        error_msg: str = "Abstract Method is not implemented yet."
-        raise NotImplementedError(error_msg)
+        if self._settings.access != ModelAccessType.OLLAMA:
+            error_msg: str = "The selected access type is not implemented yet."
+            raise NotImplementedError(error_msg)
+
+        try:
+            ollama.list()
+        except Exception:  # noqa: BLE001
+            return False
+        return True

@@ -7,18 +7,18 @@ different services.
 
 from pydantic import BaseModel
 
-from datatypes import OcrResult
+from datatypes import OcrStatusTypes
 from datatypes import Product
 from datatypes import ProductCategories
 from datatypes import ReceiptId
 from datatypes import datetime
 
 
-class ReceiptOcrResult(BaseModel):
+class Receipt(BaseModel):
     """This class is responsible of storing receipt instances."""
 
     receipt_id: ReceiptId
-    ocr_status: OcrResult
+    ocr_status: OcrStatusTypes
     store_name: str
     store_address: str
     date_time: datetime

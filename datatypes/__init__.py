@@ -9,16 +9,16 @@ from datetime import datetime
 from datatypes.categories import ProductCategories
 from datatypes.common import Currencies
 from datatypes.common import ReceiptId
-from datatypes.ocr_result import OcrResult
 from datatypes.ocr_result import OcrStatusTypes
 from datatypes.product import Product
+from datatypes.receipt import Receipt
 
 __all__ = [
     "Currencies",
-    "OcrResult",
     "OcrStatusTypes",
     "Product",
     "ProductCategories",
+    "Receipt",
     "ReceiptId",
     "datetime",
 ]

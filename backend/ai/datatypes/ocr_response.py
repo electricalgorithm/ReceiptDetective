@@ -9,6 +9,7 @@ from enum import unique
 
 from pydantic import BaseModel
 
+from datatypes import Currencies
 from datatypes import Product
 
 
@@ -16,7 +17,7 @@ from datatypes import Product
 class OcrStatus(StrEnum):
     """This enum represents the status of the OCR, and selected by LLM."""
 
-    FAILED = "I DO NOT KNOW OR UNDERSTAND"
+    FAILED = "I AM HAVING PROBLEM TO RECOGNIZE OR UNDERSTAND EVERYTHING"
     SUCCESS = "I CAN RECOGNIZE EVERY FIELD AND UNDERSTAND"
 
 
@@ -28,3 +29,5 @@ class OcrResponse(BaseModel):
     store_address: str | None
     date_time: datetime | None
     products: list[Product] | None
+    total_price: float | None
+    total_price_currency: Currencies | None

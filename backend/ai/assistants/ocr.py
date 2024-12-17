@@ -46,6 +46,9 @@ class OcrAssistant(AssistantBase):
         :param input_data: A dict contains "image" key with a value
         that holds absolute path of an image.
         :raise NotImplementedError: OcrAssistant with different access type.
+        :raise RuntimeError: The model is not accessible.
+        :raise ValueError: The input data is not in proper format.
+        :raise FileNotFoundError: The image file cannot be found.
         :returns: A OcrResponse element.
         """
         # Check if access type is OLLAMA.
@@ -95,18 +98,3 @@ class OcrAssistant(AssistantBase):
             raise TypeError(error_msg)
 
         return self._settings.response_model_class.model_validate_json(response.message.content)
-
-    def heartbeat(self) -> bool:
-        """Check if model is alive to recieve inputs.
-
-        :return: True if alive, False if not.
-        """
-        if self._settings.access != ModelAccessType.OLLAMA:
-            error_msg: str = "The selected access type is not implemented yet."
-            raise NotImplementedError(error_msg)
-
-        try:
-            ollama.list()
-        except Exception:  # noqa: BLE001
-            return False
-        return True

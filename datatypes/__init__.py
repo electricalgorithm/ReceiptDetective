@@ -4,6 +4,7 @@ This package exposes the datatypes needed for the other packages.
 It is important to define a datatype in this package, and use it
 across the other packages.
 """
+
 from datetime import datetime
 
 from datatypes.categories import ProductCategories

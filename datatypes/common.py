@@ -1,4 +1,5 @@
 """The common module provides the types that are small to implement on their own files."""
+
 import re
 from enum import StrEnum
 from enum import unique

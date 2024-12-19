@@ -5,6 +5,7 @@ Within the module, an analyzer LLM agent is proposed. The LLM agent
 looks for the problems in the receipt OCR and solves if something
 seems different. It is a truth-check model on top of vision model.
 """
+
 from typing import Any
 
 import ollama
@@ -29,6 +30,7 @@ class AnalyzerAssistant(AssistantBase):
     properly writes the product names into human readable form.
     """
 
+    SERIALIZED_OBJECT_PLACEHOLDER: str = "{% SERIALIZED_OBJECT_JSON %}"
     PRODUCTS_LIST_PLACEHOLDER: str = "{% PRODUCT_LIST %}"
 
     def __init__(self, settings: AssistantSettings = ANALYZER_DEFAULT_SETTINGS) -> None:
@@ -76,7 +78,10 @@ class AnalyzerAssistant(AssistantBase):
 
         # Convert BaseModel to string to provide with prompt.
         product_abbrvs: str = "".join([f"- {abbrv.name}\n" for abbrv in ocr_result.products])
-        content: str = self._settings.prompt.replace(self.PRODUCTS_LIST_PLACEHOLDER, product_abbrvs)
+        content: str = self._settings.prompt.replace(self.PRODUCTS_LIST_PLACEHOLDER, product_abbrvs).replace(
+            self.SERIALIZED_OBJECT_PLACEHOLDER,
+            ocr_result.model_dump_json(),
+        )
 
         # Send the OCR request to agent.
         response: ollama.ChatResponse = ollama.chat(

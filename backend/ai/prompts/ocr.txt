@@ -11,3 +11,7 @@ is very imporatant. You should only tell user the values you
 are sure about.
 
 Do not hallucinate. Do not mock. Only truths.
+
+{% SERIALIZED_OBJECT_JSON %}
+
+Return as JSON.

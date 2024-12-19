@@ -3,6 +3,7 @@ This module provides Product datatype that holds information related to single p
 
 Each product item provides real life data related to the price, item name, category, etc.
 """
+
 from pydantic import BaseModel
 
 from datatypes import Currencies

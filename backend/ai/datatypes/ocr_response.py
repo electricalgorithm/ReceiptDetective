@@ -3,6 +3,7 @@ This module contains a response datatype for OCR AI.
 
 The class will be used to retrieve structured output from the LLM.
 """
+
 from datetime import datetime
 from enum import StrEnum
 from enum import unique

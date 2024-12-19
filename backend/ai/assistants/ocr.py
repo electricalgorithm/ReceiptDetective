@@ -5,7 +5,6 @@ This module contains the implementation related to LLM-OCR for reading
 receipts and providing structured datatype to the consumers.
 """
 
-
 from pathlib import Path
 from typing import Any
 
@@ -15,7 +14,7 @@ from pydantic import BaseModel
 from backend.ai.assistants.base import AssistantBase
 from backend.ai.assistants.base import AssistantSettings
 from backend.ai.assistants.base import ModelAccessType
-from backend.ai.datatypes.ocr_response import OcrResponse
+from backend.ai.datatypes import OcrResponse
 
 OCR_DEFAULT_SETTINGS: AssistantSettings = AssistantSettings(
     model="llama3.2-vision:11b",

@@ -1,7 +1,7 @@
 [project]
 name = "ReceiptDetective"
 version = "2024-12"
-requires-python = ">= 3.13"
+requires-python = ">= 3.12"
 description = "Local AI assistant that helps you to organize your receipts."
 authors = [{name = "Gyokhan Kochmarla", email = "hello@gyokhan.com"}]
 readme = "README.md"
@@ -15,17 +15,24 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.ruff]
-target-version = "py313"
+target-version = "py312"
 line-length = 120
+
+[tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-  "CPY001"
+  "CPY001",   # Do not check copyright statements.
+  "D400",     # Do not check the period on the first line.
+  "ANN101",   # Do not require to have type hints for self.
 ]
 
 [tool.ruff.format]
 preview = false
 indent-style = "space"
 quote-style = "double"
+
+[tool.ruff.lint.isort]
+force-single-line = true
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257"

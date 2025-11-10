@@ -31,13 +31,19 @@ def run_pipeline(image_path: str) -> Receipt:
     translator_agent: TranslatorAssistant = TranslatorAssistant()
 
     ocr_result: OcrResponse = ocr_agent.ask({"image": image_path})
+    print(f"ocr_result: {ocr_result}")
     if ocr_result.ocr_status != OcrStatus.SUCCESS:
         error_msg: str = "The OCR assistant has failed. Please re-run."
         raise PipelineError(error_msg)
 
     corrected_ocr: OcrResponse = analyzer_agent.ask({"ocr_result": ocr_result})
-    if corrected_ocr.ocr_status != OcrStatus.SUCCESS or len(corrected_ocr.products) != len(ocr_result.products):
+    print(f"corrected_ocr: {corrected_ocr}")
+    if corrected_ocr.ocr_status != OcrStatus.SUCCESS:
         error_msg: str = "The Analyzer assistant has failed. Please re-run."
+        raise PipelineError(error_msg)
+
+    if len(corrected_ocr.products) != len(ocr_result.products):
+        error_msg: str = "The Analyzer assistant did not return the same amount of products. Please re-run."
         raise PipelineError(error_msg)
 
     translated_ocr: OcrResponse = translator_agent.ask(
@@ -47,8 +53,13 @@ def run_pipeline(image_path: str) -> Receipt:
             "target_lang": "English",
         },
     )
-    if translated_ocr.ocr_status != OcrStatus.SUCCESS or len(translated_ocr.products) != len(corrected_ocr.products):
+    print(f"translated_ocr: {translated_ocr}")
+    if translated_ocr.ocr_status != OcrStatus.SUCCESS:
         error_msg: str = "The Translator assistant has failed. Please re-run."
+        raise PipelineError(error_msg)
+
+    if len(translated_ocr.products) != len(corrected_ocr.products):
+        error_msg: str = "The Translator assistant did not return the same amount of products. Please re-run."
         raise PipelineError(error_msg)
 
     return Receipt(

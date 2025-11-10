@@ -24,12 +24,15 @@ ignore = [
   "CPY001",   # Do not check copyright statements.
   "D400",     # Do not check the period on the first line.
   "ANN101",   # Do not require to have type hints for self.
+  "COM812",
 ]
 
 [tool.ruff.format]
 preview = false
 indent-style = "space"
 quote-style = "double"
+exclude = [
+]
 
 [tool.ruff.lint.isort]
 force-single-line = true
